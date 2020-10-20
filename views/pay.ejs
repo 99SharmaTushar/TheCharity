@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="https://js.stripe.com/v3/" ></script>
+  <script src="https://checkout.stripe.com/v2/checkout.js" ></script>
+  <script>var stripePublicKey = '<%= stripePublicKey %>'</script>
+
+</head>
+<title>Secure Payment Gateway</title>
+<body class="text-center" style="background:#f5f5f5;padding-top: 10%;padding-bottom: 40px;">
+      <h1 class="h3 mb-3 font-weight-normal">This is a secure payment gateway !!!</h1><br>
+      <button class="btn btn-lg btn-primary btn-block pay-button " style="border-radius: 5px;border-style: none;font-size:20px;color: white;margin-bottom:1em;max-width:200px;margin:auto;">Pay</button>
+
+      <form id="charge-form" action="/charge" method="post">
+            <input type="hidden" name="tokenInput" value="" id="tokenId">
+      </form>
+      <script>
+              var stripeHandler = StripeCheckout.configure({
+              key: stripePublicKey,
+              locale: 'auto',
+              token: function(token) {
+                    var element= document.getElementById("charge-form");
+                    document.getElementById("tokenId").value = token.id;
+                    element.submit();
+              }
+            })
+              document.getElementsByClassName('pay-button')[0].addEventListener('click', purchase)
+                function purchase()
+                {
+                  stripeHandler.open({
+                  amount: <%= amount%>
+                })
+                }
+      </script>
+</body>
+
+</html>
+
+
+
+<!-- <form action="charge" method="POST">
+  <h1 class="h3 mb-3 font-weight-normal">This is a secure payment gateway !!!</h1><br>
+    <script
+        src="//checkout.stripe.com/v2/checkout.js"
+        class="stripe-button"
+        data-key="<%= stripePublicKey %>"
+        data-amount="<%= amount%>"
+        data-currency="INR"
+        data-name="<%= userName %>"
+        data-description="Donation for Charity"
+        data-locale="auto" >
+    </script>
+</form> -->
