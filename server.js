@@ -7,7 +7,7 @@ const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
 const express = require("express")
 const bodyParser = require("body-parser");
 const app = express()
-const stripe = require("stripe")(stripeSecretKey)
+const stripe = require("stripe")('sk_test_51HdWEUKDuaqCN8C8BHhr74LtfBe7QaEDm9zv5rs6HqcntbuFMKFPdFtkkegDtj5cBIqaas8dp50Ox6rwxOtj2FEn00UvRDtkpt')
 
 let userName = ''
 let amount = 0
